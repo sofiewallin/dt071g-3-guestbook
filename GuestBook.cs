@@ -1,54 +1,45 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Text.Json.Serialization;
 
-namespace guestbook
+namespace GuestBook
 {
     class GuestBook 
     {
-        // Fields
-        private string name;
-        private string file;
-        private List<Entry> entrys;
-
         // Constructor
-        public GuestBook(string name, string file)
+        [JsonConstructor]
+        public GuestBook(string name)
         {
-            this.name = name;
-            this.file = file;
-            this.entrys = new List<Entry>();
+            Name = name;
+            Entries = new List<Entry>();
         }
+
+        // Properties
+        [JsonInclude]
+        public string Name { get; private set; }
+        [JsonInclude]
+        public List<Entry> Entries { get; private set; }
 
         // Methods
-        public override string ToString()
+        public Entry AddEntry(Entry entry)
         {
-            return $"{this.name}";
+            Entries.Add(entry);
+            return entry;
         }
 
-        public void ListEntries() 
+        public Entry RemoveEntry(int entryIndex)
         {
-            if (File.Exists(this.file))
+            Entries.RemoveAt(entryIndex);
+            return Entries[entryIndex];
+        }
+
+        public void PrintEntries() {
+            foreach(Entry entry in Entries)
             {
+                int entryIndex = Entries.IndexOf(entry);
+                Console.WriteLine($"[{entryIndex}] {entry.AuthorName} – {entry.Message}");
 
-            }
+            }            
         }
-
-        public void AddEntry()
-        {
-            if (File.Exists(this.file))
-            {
-
-            }
-        }
-
-        public void DeleteEntry()
-        {
-            if (File.Exists(this.file))
-            {
-
-            }
-        }
-
-
     }
 }
