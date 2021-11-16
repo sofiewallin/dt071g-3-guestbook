@@ -6,7 +6,19 @@ namespace GuestBook
 {
     class GuestBook 
     {
-        // Constructor
+        // PROPERTIES
+        [JsonInclude]
+        public string Name { get; private set; }
+        [JsonInclude]
+        public List<Entry> Entries { get; private set; }
+        [JsonIgnore]
+        public bool HasEntries {
+            get {
+                return Entries.Count > 0;
+            }
+        }
+
+        // CONSTRUCTOR
         [JsonConstructor]
         public GuestBook(string name)
         {
@@ -14,25 +26,24 @@ namespace GuestBook
             Entries = new List<Entry>();
         }
 
-        // Properties
-        [JsonInclude]
-        public string Name { get; private set; }
-        [JsonInclude]
-        public List<Entry> Entries { get; private set; }
+        // METHODS
 
-        // Methods
+        // Add entry to guestbook
         public Entry AddEntry(Entry entry)
         {
             Entries.Add(entry);
             return entry;
         }
 
+        // Remove entry from guest book
         public Entry RemoveEntry(int entryIndex)
         {
+            Entry removedEntry = Entries[entryIndex];
             Entries.RemoveAt(entryIndex);
-            return Entries[entryIndex];
+            return removedEntry;
         }
 
+        // Print all entries
         public void PrintEntries() {
             foreach(Entry entry in Entries)
             {
