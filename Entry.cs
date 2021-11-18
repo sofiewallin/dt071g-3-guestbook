@@ -1,5 +1,9 @@
 using System.Text.Json.Serialization;
 
+/*
+* Code by Sofie Wallin (sowa2002), student at MIUN, 2021
+*/
+
 namespace GuestBook
 {
     class Entry 

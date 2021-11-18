@@ -2,6 +2,10 @@
 using System.IO;
 using System.Text.Json;
 
+/*
+* Code by Sofie Wallin (sowa2002), student at MIUN, 2021
+*/
+
 namespace GuestBook
 {
     // Set message types
